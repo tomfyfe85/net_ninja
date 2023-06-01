@@ -1,0 +1,37 @@
+ span{
+  /* display:block; */
+  margin: 5px;
+  display: inline-block;
+} 
+
+div{
+  color: aqua;
+  display:inline ;
+  border: 2px solid crimson;
+  margin: 5px
+  font-weight: bold
+}
+
+p{
+ border: inherit;
+ margin: inherit;
+}
+
+p.good{
+color: blue;
+}
+
+p.good.feedback{
+  border: 1px dashed crimson
+}
+
+h3#content{
+  background-color: cornflowerblue;
+  padding: 6px;
+}
+a[href= "https://www.apple.com"]{
+  background-color: rgb(235, 28, 104);
+}
+a[href$=".com"]{
+  background-color:fuchsia}
+  
