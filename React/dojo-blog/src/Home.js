@@ -18,7 +18,7 @@ const Home = () => {
           console.log(data);
           setBlogs(data);
           setIsLoading(false);
-          setError(false)
+          setError(false);
         })
         .catch((err) => {
           setIsLoading(false);
@@ -31,7 +31,7 @@ const Home = () => {
     <div className="home">
       {error && <div>Could not fetch data</div>}
       {isLoading && <div>Loading..</div>}
-      {blogs && <BlogList blogs={blogs} title="All Blogs!" />}{" "}
+      {blogs && <BlogList blogs={blogs} title="All Blogs!" />}
     </div>
   );
 };
