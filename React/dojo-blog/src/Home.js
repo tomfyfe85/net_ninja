@@ -3,23 +3,33 @@ import BlogList from "./BlogList";
 const Home = () => {
   const [blogs, setBlogs] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setTimeout(() => {
       fetch("http://localhost:8000/blogs")
         .then((res) => {
+          if (!res.ok) {
+            throw Error("could not fetch data");
+          }
           return res.json();
         })
         .then((data) => {
           console.log(data);
           setBlogs(data);
           setIsLoading(false);
+          setError(false)
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          setError(err.message);
         });
     }, 1000);
   }, []);
 
   return (
     <div className="home">
+      {error && <div>Could not fetch data</div>}
       {isLoading && <div>Loading..</div>}
       {blogs && <BlogList blogs={blogs} title="All Blogs!" />}{" "}
     </div>
