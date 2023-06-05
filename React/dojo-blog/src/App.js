@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Navbar from "./NavBar";
 import Home from "./Home";
 
