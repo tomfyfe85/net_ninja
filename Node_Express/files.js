@@ -20,11 +20,11 @@ const fs = require("fs");
 //   console.log("file was written again");
 // });
 
-// directories
+// // directories
 // if (!fs.existsSync("./assets")) {
 //   // checks if folder (doesn't) exist(s)
 //   fs.mkdir("./assets", (err) => {
-//     // async creates folder. make directory 
+//     // async creates folder. make directory
 //     if (err) {
 //       console.log(err);
 //     }
@@ -37,5 +37,16 @@ const fs = require("fs");
 //       console.log(err);
 //     }
 //     console.log("folder deleted");
+//   });
+// }
+
+// deleting files
+// if (fs.existsSync("./docs/deleteme.txt")) {
+//   fs.unlink("./docs/deleteme.txt", (err) => {
+//     // fs.unklink for deleting files - async
+//     if (err) {
+//       console.log(err);
+//     }
+//     console.log("file deleted");
 //   });
 // }
