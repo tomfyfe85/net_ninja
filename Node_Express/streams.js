@@ -9,12 +9,15 @@ const readStream = fs.createReadStream("./docs/blog3.txt", {
 
 const writeStream = fs.createWriteStream("./docs/blog4.txt");
 // will write each chunk received in the stream to a new file (blog4.txt)
-readStream.on("data", (chunk) => {
-  console.log("---new chunk");
-  console.log(chunk);
-  writeStream.write("\nNEW CHUNK\n");
-  writeStream.write(chunk);
-});
+// readStream.on("data", (chunk) => {
+//   console.log("---new chunk");
+//   console.log(chunk);
+//   writeStream.write("\nNEW CHUNK\n");
+//   writeStream.write(chunk);
+// });
 // .on is an event listener
 // listening for a chunk of data in the buffer
 // 'data' is a data event. The the data can be used as the chunk argument in the call back function.
+
+// piping
+readStream.pipe(writeStream);
