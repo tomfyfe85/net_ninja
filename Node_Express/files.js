@@ -19,3 +19,23 @@ const fs = require("fs");
 // fs.writeFile("./docs/blog2.txt", "hello world again", () => {
 //   console.log("file was written again");
 // });
+
+// directories
+// if (!fs.existsSync("./assets")) {
+//   // checks if folder (doesn't) exist(s)
+//   fs.mkdir("./assets", (err) => {
+//     // async creates folder. make directory 
+//     if (err) {
+//       console.log(err);
+//     }
+//     console.log("folder created");
+//   });
+// } else {
+//   fs.rmdir("./assets", (err) => {
+//     // removes directory if it already exists
+//     if (err) {
+//       console.log(err);
+//     }
+//     console.log("folder deleted");
+//   });
+// }
