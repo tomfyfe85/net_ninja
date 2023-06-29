@@ -21,3 +21,4 @@ const writeStream = fs.createWriteStream("./docs/blog4.txt");
 
 // piping
 readStream.pipe(writeStream);
+// .pipe creates argument of writeStream ad 'pipes' the data from blog3 (readStream) directly into it 
