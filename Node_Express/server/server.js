@@ -1,8 +1,22 @@
 const http = require("http");
 const fs = require("fs");
+const _ = require("lodash");
 
 // creates a server and takes in a call back function
 const server = http.createServer((req, res) => {
+  // lodash
+  // lodash provides utility methods IE
+
+  const num = _.random(0, 39);
+  console.log(num);
+
+  const greet = _.once(() => {
+    console.log("hello");
+  });
+
+  greet();
+  greet();
+  greet();
   // console.log("request made");
   // console.log(req.url, req.method)
 
