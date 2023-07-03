@@ -1,15 +1,20 @@
-// express app
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose");
 
 // 3rd party middleware
 const morgan = require("morgan");
 
+// connect to mongoDB
+const dbURI =
+  "mongodb+srv://tomfyfe85:Batdad66696@netninjanodejs.br8fpun.mongodb.net/node-tutorial?retryWrites=true&w=majority";
+mongoose
+  .connect(dbURI)
+  .then((result) => app.listen(3000), console.log("connected to db"))
+  .catch((err) => console.log(err));
+// app.listen(3000)  is only listening for requests then the data has been retrieved from the db
 // register view engine
 app.set("view engine", "ejs");
-
-// listen for requests
-app.listen(3000);
 
 // middleware and static files -
 app.use(express.static("public"));
