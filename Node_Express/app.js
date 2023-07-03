@@ -1,13 +1,13 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-
+const Blog = require("./models/blog");
+const dbURI = require("./URI");
 // 3rd party middleware
 const morgan = require("morgan");
 
 // connect to mongoDB
-const dbURI =
-  "mongodb+srv://tomfyfe85:Batdad66696@netninjanodejs.br8fpun.mongodb.net/node-tutorial?retryWrites=true&w=majority";
+
 mongoose
   .connect(dbURI)
   .then((result) => app.listen(3000), console.log("connected to db"))
@@ -18,7 +18,6 @@ app.set("view engine", "ejs");
 
 // middleware and static files -
 app.use(express.static("public"));
-// setting up static files in public folder
 app.use(morgan("dev"));
 // logs activity in the console rather than using code such as:
 
@@ -29,6 +28,44 @@ app.use(morgan("dev"));
 //   console.log("method: ", req.method);
 //   next();
 // });
+
+// mongoose and mongo sandbox routes
+app.get("/add-blog", (req, res) => {
+  const blog = new Blog({
+    title: "new blog",
+    snippet: "about my new blog",
+    body: "this is the other blog",
+  });
+  blog
+    .save()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => console.log(err));
+});
+// creates a new instance of Blog. When /add-blog is entered blog.save saves to the db
+// ... .get then gets the data from the db as result and res.send(result) sends response to the browser.
+app.get("/all-blogs", (req, res) => {
+  Blog.find()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+// find all blogs
+
+app.get("/single-blog", (req, res) => {
+  Blog.findById("64a2f417c7093d9e5b602d40")
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+// find a single blog by ID
 
 app.get("/", (req, res) => {
   // res.send("<p>home page</p>");
