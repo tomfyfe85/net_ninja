@@ -1,6 +1,9 @@
-const express = require("express");
 // express app
+const express = require("express");
 const app = express();
+
+// 3rd party middleware
+const morgan = require("morgan");
 
 // register view engine
 app.set("view engine", "ejs");
@@ -8,13 +11,19 @@ app.set("view engine", "ejs");
 // listen for requests
 app.listen(3000);
 
-app.use((req, res, next) => {
-  console.log("new request made:");
-  console.log("host: ", req.hostname);
-  console.log("path: ", req.path);
-  console.log("method: ", req.method);
-  next();
-});
+// middleware and static files -
+app.use(express.static("public"));
+// setting up static files in public folder
+app.use(morgan("dev"));
+// logs activity in the console rather than using code such as:
+
+// app.use((req, res, next) => {
+//   console.log("new request made:");
+//   console.log("host: ", req.hostname);
+//   console.log("path: ", req.path);
+//   console.log("method: ", req.method);
+//   next();
+// });
 
 app.get("/", (req, res) => {
   // res.send("<p>home page</p>");
