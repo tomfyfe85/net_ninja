@@ -18,6 +18,8 @@ app.set("view engine", "ejs");
 
 // middleware and static files -
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+// express.urlencoded - this will allow for req.body
 app.use(morgan("dev"));
 // logs activity in the console rather than using code such as:
 
@@ -88,6 +90,21 @@ app.get("/blogs", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+});
+
+app.post("/blogs", (req, res) => {
+  let blog = new Blog(req.body);
+  // req.body is an object with the form data IE
+  //   title: "new blog 3",
+  //     snippet: "about my new blog",
+  //     body: "this is the other blog",
+  blog
+    .save()
+    .then((result) => {
+      console.log(result);
+      res.redirect("/blogs");
+    })
+    .catch((err) => console.log(err));
 });
 
 app.get("/blogs/create", (req, res) => {
