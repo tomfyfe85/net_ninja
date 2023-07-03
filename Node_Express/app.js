@@ -11,12 +11,26 @@ app.listen(3000);
 app.get("/", (req, res) => {
   // res.send("<p>home page</p>");
   // res.sendFile("./views/index.html", { root: __dirname });
-  res.render("index", { title: "Home" });
+  const blogs = [
+    {
+      title: "Yoshi finds eggs",
+      snippet: "Lorem ipsum dolor sit amet consectetur",
+    },
+    {
+      title: "Mario finds stars",
+      snippet: "Lorem ipsum dolor sit amet consectetur",
+    },
+    {
+      title: "How to defeat bowser",
+      snippet: "Lorem ipsum dolor sit amet consectetur",
+    },
+  ];
+  res.render("index", { title: "Home", blogs });
 });
 
 app.get("/about", (req, res) => {
   // res.sendFile("./views/about.html", { root: __dirname });
-  res.render("about", { title: "about" });
+  res.render("about", { title: "About" });
 });
 
 app.get("/blogs/create", (req, res) => {
