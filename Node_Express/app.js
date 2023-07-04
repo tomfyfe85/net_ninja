@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Blog = require("./models/blog");
+const blogRoutes = require("./routes/blogRoutes");
 const dbURI = require("./URI");
 // 3rd party middleware
 const morgan = require("morgan");
@@ -32,44 +32,6 @@ app.use(morgan("dev"));
 //   next();
 // });
 
-// mongoose and mongo sandbox routes
-// app.get("/add-blog", (req, res) => {
-//   const blog = new Blog({
-//     title: "new blog 3",
-//     snippet: "about my new blog",
-//     body: "this is the other blog",
-//   });
-//   blog
-//     .save()
-//     .then((result) => {
-//       res.send(result);
-//     })
-//     .catch((err) => console.log(err));
-// });
-// // creates a new instance of Blog. When /add-blog is entered blog.save saves to the db
-// // ... .get then gets the data from the db as result and res.send(result) sends response to the browser.
-// app.get("/all-blogs", (req, res) => {
-//   Blog.find()
-//     .then((result) => {
-//       res.send(result);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
-// // find all blogs
-
-// app.get("/single-blog", (req, res) => {
-//   Blog.findById("64a2f417c7093d9e5b602d40")
-//     .then((result) => {
-//       res.send(result);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
-// // find a single blog by ID
-
 app.get("/", (req, res) => {
   // res.send("<p>home page</p>");
   // res.sendFile("./views/index.html", { root: __dirname });
@@ -81,61 +43,7 @@ app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
 });
 
-app.get("/blogs/create", (req, res) => {
-  res.render("create", { title: "New Blog" });
-});
-
-// blog routes
-app.get("/blogs", (req, res) => {
-  Blog.find()
-    .sort({ createdAt: -1 })
-    .then((result) => {
-      res.render("index", { title: "All Blogs", blogs: result });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.post("/blogs", (req, res) => {
-  let blog = new Blog(req.body);
-  // req.body is an object with the form data IE
-  //   title: "new blog 3",
-  //     snippet: "about my new blog",
-  //     body: "this is the other blog",
-  blog
-    .save()
-    .then((result) => {
-      console.log(result);
-      res.redirect("/blogs");
-    })
-    .catch((err) => console.log(err));
-});
-
-app.get("/blogs/:id", (req, res) => {
-  const id = req.params.id;
-  console.log(id);
-  Blog.findById(id)
-    .then((result) => {
-      console.log(res.body);
-      res.render("details", { blog: result, title: "Blog details" });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.delete("/blogs/:id", (req, res) => {
-  const id = req.params.id;
-  console.log(id);
-  Blog.findByIdAndDelete(id)
-    .then((result) => {
-      res.json({ redirect: "/blogs" });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+app.use(blogRoutes)
 
 // redirects
 // app.get("/about-us", (req, res) => {
