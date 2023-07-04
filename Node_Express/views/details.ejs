@@ -9,7 +9,24 @@
         <p><%- blog.body %></p>
       </div>
       <a class="delete" data-doc="<%= blog._id %>">delete</a>
+      <!-- data attribute = data-doc. Could be data-anyThingYouLike -->
+      <!-- this enables you to take the data blog._id and using the Fetch API 
+      send a delete request to the server, with this blog's ID -->
     </div>
     <%- include('./partials/footer.ejs')%>
+    <script>
+      const trash = document.querySelector("a.delete");
+      trash.addEventListener("click", (e) => {
+        const endPoint = `/blogs/${trash.dataset.doc}`;
+        // ie the element a, class delete, data attribute - doc
+        // this end point is where the fetch req will go to
+        fetch(endPoint, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => (window.location.href = data.redirect))
+          .catch((err) => console.log(err));
+      });
+    </script>
   </body>
 </html>

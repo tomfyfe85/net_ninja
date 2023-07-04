@@ -81,6 +81,10 @@ app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
 });
 
+app.get("/blogs/create", (req, res) => {
+  res.render("create", { title: "New Blog" });
+});
+
 // blog routes
 app.get("/blogs", (req, res) => {
   Blog.find()
@@ -121,6 +125,17 @@ app.get("/blogs/:id", (req, res) => {
     });
 });
 
+app.delete("/blogs/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  Blog.findByIdAndDelete(id)
+    .then((result) => {
+      res.json({ redirect: "/blogs" });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 // redirects
 // app.get("/about-us", (req, res) => {
