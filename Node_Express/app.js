@@ -43,7 +43,9 @@ app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
 });
 
-app.use(blogRoutes)
+app.use('/blogs', blogRoutes)
+// This means you can refactor the routes in blogRoutes and
+// ... remove blogs from the route, as that part is handled above
 
 // redirects
 // app.get("/about-us", (req, res) => {
@@ -54,5 +56,5 @@ app.use(blogRoutes)
 app.use((req, res) => {
   // res.status(404).sendFile("./views/404.html", { root: __dirname });
   res.status(404).render("404", { title: 404 });
-});
+}); 
 // use runs for every type of request
