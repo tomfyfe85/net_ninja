@@ -8,7 +8,9 @@
       <div class="content">
         <p><%- blog.body %></p>
       </div>
-      <a class="delete" data-doc="<%= blog._id %>">delete</a>
+      <a class="delete" data-doc="<%= blog._id %>">
+        <img src="/trash.svg" alt=delete icon"/>
+      </a>
       <!-- data attribute = data-doc. Could be data-anyThingYouLike -->
       <!-- this enables you to take the data blog._id and using the Fetch API 
       send a delete request to the server, with this blog's ID -->
