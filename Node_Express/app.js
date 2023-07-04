@@ -18,6 +18,7 @@ app.set("view engine", "ejs");
 
 // middleware and static files -
 app.use(express.static("public"));
+
 app.use(express.urlencoded({ extended: true }));
 // express.urlencoded - this will allow for req.body
 app.use(morgan("dev"));
@@ -107,9 +108,19 @@ app.post("/blogs", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-app.get("/blogs/create", (req, res) => {
-  res.render("create", { title: "Create a new blog" });
+app.get("/blogs/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  Blog.findById(id)
+    .then((result) => {
+      console.log(res.body);
+      res.render("details", { blog: result, title: "Blog details" });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
+
 
 // redirects
 // app.get("/about-us", (req, res) => {
